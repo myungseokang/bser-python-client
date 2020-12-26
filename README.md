@@ -23,7 +23,7 @@ $ pipenv install bser-python-client
 
 ## Example
 
-[Example](examples/basic.py)
+[examples/basic.py](examples/basic.py)
 
 ```python
 from bser_client import BserAPIClient

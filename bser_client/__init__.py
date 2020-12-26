@@ -43,9 +43,7 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        games = json_resp.get("userGames", [])
-
-        return games
+        return json_resp.get("userGames", [])
 
     def fetch_user_stats(self,
                          user_number: Optional[int],
@@ -59,9 +57,7 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        stats = json_resp.get("userStats", {})
-
-        return stats
+        return json_resp.get("userGames", [])
 
     def fetch_meta_data(self, meta_type: str = 'hash') -> List[dict]:
         url = f'{self.api_url}/data/{meta_type}'
@@ -70,9 +66,7 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        characters = json_resp.get("data", [])
-
-        return characters
+        return json_resp.get("data", [])
 
     def fetch_rank_top(self, season_id: int = 1, matching_team_mode: int = 1) -> List[dict]:
         url = f'{self.api_url}/rank/top/{season_id}/{matching_team_mode}'
@@ -81,9 +75,7 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        ranks = json_resp.get("topRanks", [])
-
-        return ranks
+        return json_resp.get("topRanks", [])
 
     def fetch_rank_user(self,
                         user_number: Optional[int],
@@ -98,6 +90,4 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        rank_data = json_resp.get("userRank", {})
-
-        return rank_data
+        return json_resp.get("userRank", {})
