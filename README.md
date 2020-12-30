@@ -23,7 +23,6 @@ $ pipenv install bser-python-client
 
 ## Example
 
-[examples/basic.py](examples/basic.py)
 
 ```python
 from bser_client import BserAPIClient
@@ -35,3 +34,5 @@ characters = api_client.fetch_meta_data(meta_type='Character')
 for character in characters:
     print(character.get('name'))
 ```
+
+[More examples](examples/)
