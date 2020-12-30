@@ -96,8 +96,8 @@ class BserAPIClient(object):
         if not nickname:
             raise ValueError('nickname 인자가 없습니다')
 
-        url = f'{self.api_url}/user/{nickname}'
-        response = requests.get(url, headers=self.header_data)
+        url = f'{self.api_url}/user/nickname/'
+        response = requests.get(url, params={'query': nickname}, headers=self.header_data)
         json_resp = response.json()
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
