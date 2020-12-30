@@ -5,9 +5,9 @@ import requests
 
 
 class BserAPIClient(object):
-    """
+    '''
     블랙서바이벌: 영원회귀 openapi 를 위한 클라이언트
-    """
+    '''
     BASE_URL = 'https://open-api.bser.io'
     api_key: Optional[str] = None
     version: Optional[str] = None
@@ -43,7 +43,7 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        return json_resp.get("userGames", [])
+        return json_resp.get('userGames', [])
 
     def fetch_user_stats(self,
                          user_number: Optional[int],
@@ -57,7 +57,7 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        return json_resp.get("userGames", [])
+        return json_resp.get('userGames', [])
 
     def fetch_meta_data(self, meta_type: str = 'hash') -> List[dict]:
         url = f'{self.api_url}/data/{meta_type}'
@@ -66,7 +66,7 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        return json_resp.get("data", [])
+        return json_resp.get('data', [])
 
     def fetch_rank_top(self, season_id: int = 1, matching_team_mode: int = 1) -> List[dict]:
         url = f'{self.api_url}/rank/top/{season_id}/{matching_team_mode}'
@@ -75,7 +75,7 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        return json_resp.get("topRanks", [])
+        return json_resp.get('topRanks', [])
 
     def fetch_rank_user(self,
                         user_number: Optional[int],
@@ -90,4 +90,16 @@ class BserAPIClient(object):
         if response.status_code != 200:
             raise ValueError(json_resp.get('message', 'API Error'))
 
-        return json_resp.get("userRank", {})
+        return json_resp.get('userRank', {})
+
+    def get_user_number_by_nickname(self, nickname: str) -> Optional[int]:
+        if not nickname:
+            raise ValueError('nickname 인자가 없습니다')
+
+        url = f'{self.api_url}/user/{nickname}'
+        response = requests.get(url, headers=self.header_data)
+        json_resp = response.json()
+        if response.status_code != 200:
+            raise ValueError(json_resp.get('message', 'API Error'))
+
+        return json_resp.get('user', {}).get('userNum')
